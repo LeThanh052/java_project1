@@ -3,11 +3,15 @@ package vn.ledeem.jobhunter.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import vn.ledeem.jobhunter.ultil.error.IdInvalidException;
+
 @RestController
 public class HelloController {
 
     @GetMapping("/")
-    public String getHelloWorld() {
+    public String getHelloWorld() throws IdInvalidException {
+        if (true)
+            throw new IdInvalidException("ID is invalid");
         return "Hello World (Hỏi Dân IT & Eric)";
     }
 }

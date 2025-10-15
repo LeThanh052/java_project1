@@ -19,6 +19,16 @@
             "projectName": "jobhunter-01-java-spring-jobhunter-starter-master",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-JobhunterApplication<01-java-spring-jobhunter-starter-master>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "vn.ledeem.jobhunter.JobhunterApplication",
+            "projectName": "01-java-spring-jobhunter-starter-master",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }

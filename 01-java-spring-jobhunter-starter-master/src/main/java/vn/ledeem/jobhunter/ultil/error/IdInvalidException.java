@@ -1,4 +1,4 @@
-package vn.ledeem.jobhunter.service.error;
+package vn.ledeem.jobhunter.ultil.error;
 
 public class IdInvalidException extends Exception {
     public IdInvalidException(String message) {

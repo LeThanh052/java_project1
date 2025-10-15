@@ -4,12 +4,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import vn.ledeem.jobhunter.domain.User;
 import vn.ledeem.jobhunter.service.UserService;
-import vn.ledeem.jobhunter.service.error.IdInvalidException;
+import vn.ledeem.jobhunter.ultil.error.IdInvalidException;
 
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,14 +23,18 @@ public class UserController {
 
     private final UserService userService;
 
-    UserController(UserService userService) {
+    private final PasswordEncoder passwordEncoder;
+
+    UserController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     // @GetMapping("/users/create")
     @PostMapping("/users")
-    public ResponseEntity<User> createNewUser(
-            @RequestBody User postManUser) {
+    public ResponseEntity<User> createNewUser(@RequestBody User postManUser) {
+        String hashPassword = this.passwordEncoder.encode(postManUser.getPassword());
+        postManUser.setPassword(hashPassword);
         User deUser = this.userService.handleCreateUser(postManUser);
         return ResponseEntity.status(HttpStatus.CREATED).body(deUser);
     }
