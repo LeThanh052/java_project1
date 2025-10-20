@@ -18,15 +18,15 @@ import vn.ledeem.jobhunter.domain.RestResponse;
 @RestControllerAdvice
 public class GlobalException {
 
-    @ExceptionHandler(value = { IdInvalidException.class,
+    @ExceptionHandler(value = {
             UsernameNotFoundException.class,
             BadCredentialsException.class
     })
-    public ResponseEntity<RestResponse<Object>> handleIdInvalidException(IdInvalidException IdException) {
+    public ResponseEntity<RestResponse<Object>> handleIdInvalidException(Exception ex) {
         RestResponse<Object> restResponse = new RestResponse<>();
         restResponse.setStatusCode(HttpStatus.BAD_REQUEST.value());
-        restResponse.setError(IdException.getMessage());
-        restResponse.setMessage("CALL API ERROR IdInvalidException");
+        restResponse.setError(ex.getMessage());
+        restResponse.setMessage("CALL API ERROR Exception");
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(restResponse);
     }
