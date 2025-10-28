@@ -3,9 +3,13 @@ package vn.ledeem.jobhunter.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import vn.ledeem.jobhunter.domain.Company;
+import vn.ledeem.jobhunter.domain.Meta;
+import vn.ledeem.jobhunter.domain.ResultPaginationDTO;
 import vn.ledeem.jobhunter.domain.User;
 import vn.ledeem.jobhunter.repository.CompanyRepository;
 
@@ -25,12 +29,25 @@ public class CompanyService {
         this.companyRepository.deleteById(id);
     }
 
-    public Company fetchCompanyById(Long id) {
-        return this.companyRepository.findById(id).orElse(null);
-    }
+    // public Company fetchCompanyById(Long id) {
+    // return this.companyRepository.findById(id).orElse(null);
+    // }
 
-    public List<Company> handleGetCompany() {
-        return this.companyRepository.findAll();
+    public ResultPaginationDTO handleGetCompany(Pageable pageable) {
+        Page<Company> pageCompany = this.companyRepository.findAll(pageable);
+
+        ResultPaginationDTO rs = new ResultPaginationDTO();
+        Meta mt = new Meta();
+
+        mt.setPage(pageCompany.getNumber());
+        mt.setPageSize(pageCompany.getSize());
+        mt.setPages(pageCompany.getTotalPages());
+        mt.setTotal(pageCompany.getTotalElements());
+
+        rs.setMeta(mt);
+        rs.setResult(pageCompany.getContent());
+
+        return rs;
     }
 
     public Company handleUpdateCompany(Company c) {
