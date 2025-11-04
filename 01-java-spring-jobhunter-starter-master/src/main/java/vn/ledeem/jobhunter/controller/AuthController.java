@@ -1,5 +1,8 @@
 package vn.ledeem.jobhunter.controller;
 
+import org.springframework.boot.actuate.autoconfigure.observation.ObservationProperties.Http;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -42,7 +45,7 @@ public class AuthController {
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
         // Tạo token và trả về cho người dùng
-        String access_token = this.securityUtil.createToken(authentication);
+        String access_token = this.securityUtil.createAccessToken(authentication);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         ResLoginDTO res = new ResLoginDTO();
@@ -57,6 +60,20 @@ public class AuthController {
         }
 
         res.setAccessToken(access_token);
-        return ResponseEntity.ok().body(res);
+
+        // Create Refresh Token
+        String refresh_token = this.securityUtil.createRefreshToken(loginDTO.getUsername(), res);
+
+        // Update refresh token to DB
+        this.userService.updateTokenUser(refresh_token, loginDTO.getUsername());
+
+        ResponseCookie resCookie = ResponseCookie.from("refresh_token", refresh_token)
+                .httpOnly(true)
+                .path("/")
+                .maxAge(7 * 24 * 60 * 60) // 7 days
+                .build();
+        return ResponseEntity.ok()
+                .header(HttpHeaders.SET_COOKIE, resCookie.toString())
+                .body(res);
     }
 }
