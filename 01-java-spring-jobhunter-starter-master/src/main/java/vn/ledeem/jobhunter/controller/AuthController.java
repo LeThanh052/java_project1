@@ -150,4 +150,30 @@ public class AuthController {
                                 .body(res);
         }
 
+        @PostMapping("/auth/logout")
+        @ApiMessage("Logout User")
+        public ResponseEntity<Void> logout() throws IdInvalidException {
+                String email = SecurityUtil.getCurrentUserLogin().isPresent()
+                                ? SecurityUtil.getCurrentUserLogin().get()
+                                : "";
+
+                if (email.equals("")) {
+                        throw new IdInvalidException("Access Token không hợp lệ");
+                }
+
+                // update refresh token = null
+                this.userService.updateTokenUser(null, email);
+
+                //
+                ResponseCookie deleteSpringCookie = ResponseCookie
+                                .from("refresh_token", null)
+                                .httpOnly(true)
+                                .path("/")
+                                .maxAge(0) // 0 means delete cookie
+                                .build();
+                return ResponseEntity.ok()
+                                .header(HttpHeaders.SET_COOKIE, deleteSpringCookie.toString())
+                                .body(null);
+        }
+
 }
