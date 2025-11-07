@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import vn.ledeem.jobhunter.domain.RestResponse;
+import vn.ledeem.jobhunter.domain.response.RestResponse;
 
 import java.io.IOException;
 import java.util.Optional;

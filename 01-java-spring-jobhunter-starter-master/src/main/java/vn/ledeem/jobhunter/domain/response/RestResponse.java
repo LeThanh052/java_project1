@@ -1,4 +1,4 @@
-package vn.ledeem.jobhunter.domain;
+package vn.ledeem.jobhunter.domain.response;
 
 public class RestResponse<T> {
     private int statusCode;
