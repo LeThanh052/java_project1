@@ -1,18 +1,18 @@
-package vn.ledeem.jobhunter.domain.dto;
+package vn.ledeem.jobhunter.domain.response;
 
 import java.time.Instant;
+
 import lombok.Getter;
 import lombok.Setter;
 import vn.ledeem.jobhunter.ultil.constant.GenderEnum;
 
 @Getter
 @Setter
-public class ResCreateUserDTO {
+public class ResUpdateUserDTO {
     private long id;
     private String name;
-    private String email;
     private GenderEnum gender;
     private String address;
     private int age;
-    private Instant createdAt;
+    private Instant updatedAt;
 }

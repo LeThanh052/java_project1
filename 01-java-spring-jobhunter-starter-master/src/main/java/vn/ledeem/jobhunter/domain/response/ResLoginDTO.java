@@ -1,4 +1,4 @@
-package vn.ledeem.jobhunter.domain.dto;
+package vn.ledeem.jobhunter.domain.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

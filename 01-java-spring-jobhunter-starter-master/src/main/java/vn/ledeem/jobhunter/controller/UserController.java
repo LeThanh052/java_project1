@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.turkraft.springfilter.boot.Filter;
 
 import jakarta.validation.Valid;
-import vn.ledeem.jobhunter.domain.ResultPaginationDTO;
 import vn.ledeem.jobhunter.domain.User;
-import vn.ledeem.jobhunter.domain.dto.ResCreateUserDTO;
-import vn.ledeem.jobhunter.domain.dto.ResUpdateUserDTO;
-import vn.ledeem.jobhunter.domain.dto.ResUserDTO;
+import vn.ledeem.jobhunter.domain.response.ResCreateUserDTO;
+import vn.ledeem.jobhunter.domain.response.ResUpdateUserDTO;
+import vn.ledeem.jobhunter.domain.response.ResUserDTO;
+import vn.ledeem.jobhunter.domain.response.ResultPaginationDTO;
 import vn.ledeem.jobhunter.service.UserService;
 import vn.ledeem.jobhunter.ultil.annotation.ApiMessage;
 import vn.ledeem.jobhunter.ultil.error.IdInvalidException;

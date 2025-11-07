@@ -22,7 +22,7 @@ import com.turkraft.springfilter.boot.Filter;
 
 import jakarta.validation.Valid;
 import vn.ledeem.jobhunter.domain.Company;
-import vn.ledeem.jobhunter.domain.ResultPaginationDTO;
+import vn.ledeem.jobhunter.domain.response.ResultPaginationDTO;
 import vn.ledeem.jobhunter.service.CompanyService;
 import vn.ledeem.jobhunter.ultil.annotation.ApiMessage;
 

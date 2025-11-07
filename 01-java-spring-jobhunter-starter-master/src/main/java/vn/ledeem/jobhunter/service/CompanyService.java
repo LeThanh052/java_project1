@@ -9,8 +9,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import vn.ledeem.jobhunter.domain.Company;
-import vn.ledeem.jobhunter.domain.ResultPaginationDTO;
 import vn.ledeem.jobhunter.domain.User;
+import vn.ledeem.jobhunter.domain.response.ResultPaginationDTO;
 import vn.ledeem.jobhunter.repository.CompanyRepository;
 
 @Service

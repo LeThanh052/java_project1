@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import vn.ledeem.jobhunter.domain.User;
-import vn.ledeem.jobhunter.domain.dto.ResLoginDTO;
 import vn.ledeem.jobhunter.domain.request.ReqLoginDTO;
+import vn.ledeem.jobhunter.domain.response.ResLoginDTO;
 import vn.ledeem.jobhunter.service.UserService;
 import vn.ledeem.jobhunter.ultil.SecurityUtil;
 import vn.ledeem.jobhunter.ultil.annotation.ApiMessage;
