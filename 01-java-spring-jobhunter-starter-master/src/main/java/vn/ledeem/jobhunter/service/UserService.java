@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import vn.ledeem.jobhunter.domain.Meta;
 import vn.ledeem.jobhunter.domain.ResultPaginationDTO;
 import vn.ledeem.jobhunter.domain.User;
 import vn.ledeem.jobhunter.domain.dto.ResCreateUserDTO;
