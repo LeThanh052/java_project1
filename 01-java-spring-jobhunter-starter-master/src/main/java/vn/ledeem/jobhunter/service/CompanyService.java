@@ -12,13 +12,16 @@ import vn.ledeem.jobhunter.domain.Company;
 import vn.ledeem.jobhunter.domain.User;
 import vn.ledeem.jobhunter.domain.response.ResultPaginationDTO;
 import vn.ledeem.jobhunter.repository.CompanyRepository;
+import vn.ledeem.jobhunter.repository.UserRepository;
 
 @Service
 public class CompanyService {
     private final CompanyRepository companyRepository;
+    private final UserRepository userRepository;
 
-    public CompanyService(CompanyRepository companyRepository) {
+    public CompanyService(CompanyRepository companyRepository, UserRepository userRepository) {
         this.companyRepository = companyRepository;
+        this.userRepository = userRepository;
     }
 
     public Company handleCreateCompany(Company c) {
@@ -26,6 +29,13 @@ public class CompanyService {
     }
 
     public void handleDeleteCompany(Long id) {
+        Optional<Company> companyOptional = this.companyRepository.findById(id);
+        if (companyOptional.isPresent()) {
+            Company company = companyOptional.get();
+            // Xóa các user liên quan đến công ty này
+            List<User> users = this.userRepository.findByCompany(company);
+            this.userRepository.deleteAll(users);
+        }
         this.companyRepository.deleteById(id);
     }
 
@@ -61,6 +71,10 @@ public class CompanyService {
             return this.companyRepository.save(currentCompany);
         }
         return null;
+    }
+
+    public Optional<Company> findById(Long id) {
+        return this.companyRepository.findById(id);
     }
 
 }

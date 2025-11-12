@@ -7,8 +7,10 @@ import lombok.Setter;
 import vn.ledeem.jobhunter.ultil.SecurityUtil;
 
 import java.time.Instant;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Getter
 @Setter
@@ -33,6 +35,10 @@ public class Company {
     private Instant updatedAt;
     private String createdBy;
     private String updatedBy;
+
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
+    @JsonIgnore
+    List<User> users;
 
     @PrePersist
     public void handleBeforeCreate() {

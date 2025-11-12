@@ -43,7 +43,7 @@ public class CompanyController {
     }
 
     @GetMapping("/companies")
-    @ApiMessage("Fetch all users")
+    @ApiMessage("Fetch all companies ")
     public ResponseEntity<ResultPaginationDTO> getCompany(
             @Filter Specification<Company> spec, Pageable pageable) {
 
