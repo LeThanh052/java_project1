@@ -1,5 +1,6 @@
 package vn.ledeem.jobhunter.ultil;
 
+import org.springframework.boot.autoconfigure.web.ServerProperties.Tomcat.Resource;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -43,6 +44,10 @@ public class FormatRestResponse implements ResponseBodyAdvice<Object> {
         }
 
         if (body instanceof RestResponse) {
+            return body;
+        }
+
+        if (body instanceof Resource) {
             return body;
         }
 

@@ -49,7 +49,7 @@ public class SecurityConfiguration {
                         authz ->
                         // prettier-ignore
                         authz
-                                .requestMatchers("/", "/login").permitAll()
+                                .requestMatchers("/", "/login", "/storage/**").permitAll()
                                 .requestMatchers("/", "/api/v1/auth/login", "/api/v1/auth/refresh").permitAll()
                                 .anyRequest().authenticated())
                 // .securityMatcher("/users/**")
