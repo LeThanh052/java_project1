@@ -31,6 +31,7 @@ public class Resume {
     @NotBlank(message = "Email khong duoc de trong")
     private String email;
 
+    @NotBlank(message = "URL khong duoc de trong")
     private String url;
 
     @Enumerated(EnumType.STRING)

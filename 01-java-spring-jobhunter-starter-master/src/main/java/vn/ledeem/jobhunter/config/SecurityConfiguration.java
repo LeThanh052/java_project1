@@ -38,6 +38,15 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
+    String[] whiteList = {
+            "/",
+            "/api/v1/auth/login",
+            "/api/v1/auth/refresh",
+            "/storage/**",
+            "/api/v1/companies/**",
+            "/api/v1/jobs/**"
+    };
+
     @Bean
     public SecurityFilterChain filterChain(
             HttpSecurity http,
@@ -49,7 +58,7 @@ public class SecurityConfiguration {
                         authz ->
                         // prettier-ignore
                         authz
-                                .requestMatchers("/", "/login", "/storage/**").permitAll()
+                                .requestMatchers(whiteList).permitAll()
                                 .requestMatchers("/", "/api/v1/auth/login", "/api/v1/auth/refresh").permitAll()
                                 .anyRequest().authenticated())
                 // .securityMatcher("/users/**")
