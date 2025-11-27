@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.turkraft.springfilter.boot.Filter;
 import jakarta.validation.Valid;
@@ -26,7 +27,7 @@ import vn.ledeem.jobhunter.service.ResumeService;
 import vn.ledeem.jobhunter.ultil.annotation.ApiMessage;
 import vn.ledeem.jobhunter.ultil.error.IdInvalidException;
 
-@Controller
+@RestController
 @RequestMapping("/api/v1")
 public class ResumeController {
     private final ResumeService resumeService;
