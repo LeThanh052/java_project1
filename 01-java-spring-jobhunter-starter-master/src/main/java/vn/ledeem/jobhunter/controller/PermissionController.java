@@ -35,8 +35,8 @@ public class PermissionController {
     @ApiMessage("Create a Permission")
     public ResponseEntity<Permission> create(@Valid @RequestBody Permission p) throws IdInvalidException {
         // check exist permission
-        if (this.permissionService.fetchById(p.getId()) == null) {
-            throw new IdInvalidException("Permission với id" + p.getId() + "không tồn tại");
+        if (this.permissionService.IspermissionExist(p)) {
+            throw new IdInvalidException("Permission đã tồn tại");
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(this.permissionService.create(p));
     }

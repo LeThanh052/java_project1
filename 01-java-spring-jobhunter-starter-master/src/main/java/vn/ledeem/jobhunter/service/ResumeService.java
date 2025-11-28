@@ -91,7 +91,7 @@ public class ResumeService {
         res.setUpdatedAt(resume.getUpdatedAt());
         res.setUpdatedBy(resume.getUpdatedBy());
 
-        if (resume.getJob() != null) {
+        if (resume.getJob() != null && resume.getJob().getCompany() != null) {
             res.setCompanyName(resume.getJob().getCompany().getName());
         }
 
