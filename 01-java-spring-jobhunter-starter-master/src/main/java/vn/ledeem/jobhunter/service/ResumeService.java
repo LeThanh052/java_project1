@@ -9,6 +9,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.turkraft.springfilter.converter.FilterSpecification;
+import com.turkraft.springfilter.converter.FilterSpecificationConverter;
+import com.turkraft.springfilter.parser.FilterParser;
+import com.turkraft.springfilter.parser.node.FilterNode;
+
 import vn.ledeem.jobhunter.domain.Job;
 import vn.ledeem.jobhunter.domain.Resume;
 import vn.ledeem.jobhunter.domain.User;
@@ -19,12 +24,16 @@ import vn.ledeem.jobhunter.domain.response.resume.ResUpdateResumeDTO;
 import vn.ledeem.jobhunter.repository.JobRepository;
 import vn.ledeem.jobhunter.repository.ResumeRepository;
 import vn.ledeem.jobhunter.repository.UserRepository;
+import vn.ledeem.jobhunter.ultil.SecurityUtil;
 
 @Service
 public class ResumeService {
     private final ResumeRepository resumeRepository;
     private final UserRepository userRepository;
     private final JobRepository jobRepository;
+
+    private FilterParser filterParser;
+    private FilterSpecificationConverter filterSpecificationConverter;
 
     public ResumeService(ResumeRepository resumeRepository, UserRepository userRepository,
             JobRepository jobRepository) {
@@ -120,6 +129,35 @@ public class ResumeService {
                 .collect(Collectors.toList());
 
         rs.setResult(listResume);
+
+        return rs;
+    }
+
+    public ResultPaginationDTO fetchResumeByUser(Pageable pageable) {
+
+        // Lấy email user đang đăng nhập
+        String email = SecurityUtil.getCurrentUserLogin().isPresent()
+                ? SecurityUtil.getCurrentUserLogin().get()
+                : "";
+
+        // Tạo filter query để search resume theo email
+        FilterNode node = filterParser.parse("email='" + email + "'");
+        FilterSpecification<Resume> spec = filterSpecificationConverter.convert(node);
+
+        // Query DB
+        Page<Resume> pageResume = this.resumeRepository.findAll(spec, pageable);
+
+        // Tạo DTO trả về
+        ResultPaginationDTO rs = new ResultPaginationDTO();
+        ResultPaginationDTO.Meta mt = new ResultPaginationDTO.Meta();
+
+        mt.setPage(pageable.getPageNumber() + 1); // Trang hiện tại (bắt đầu từ 1)
+        mt.setPageSize(pageable.getPageSize()); // Số phần tử mỗi trang
+        mt.setPages(pageResume.getTotalPages()); // Tổng số trang
+        mt.setTotal(pageResume.getTotalElements()); // Tổng số bản ghi
+
+        rs.setMeta(mt);
+        rs.setResult(pageResume.getContent());
 
         return rs;
     }

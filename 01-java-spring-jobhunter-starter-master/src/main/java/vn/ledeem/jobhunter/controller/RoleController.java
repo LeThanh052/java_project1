@@ -52,9 +52,10 @@ public class RoleController {
         }
 
         // 2. Check name trùng (trừ chính nó)
-        if (this.roleService.existByName(r.getName())) {
-            throw new IdInvalidException("Role với name = " + r.getName() + " đã tồn tại");
-        }
+        // if (this.roleService.existByName(r.getName())) {
+        // throw new IdInvalidException("Role với name = " + r.getName() + " đã tồn
+        // tại");
+        // }
 
         // 3. Update
         Role updated = this.roleService.update(r);
