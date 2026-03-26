@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.turkraft.springfilter.builder.FilterBuilder;
 import com.turkraft.springfilter.converter.FilterSpecification;
 import com.turkraft.springfilter.converter.FilterSpecificationConverter;
 import com.turkraft.springfilter.parser.FilterParser;
@@ -32,7 +34,13 @@ public class ResumeService {
     private final UserRepository userRepository;
     private final JobRepository jobRepository;
 
+    @Autowired
+    FilterBuilder fb;
+
+    @Autowired
     private FilterParser filterParser;
+
+    @Autowired
     private FilterSpecificationConverter filterSpecificationConverter;
 
     public ResumeService(ResumeRepository resumeRepository, UserRepository userRepository,
