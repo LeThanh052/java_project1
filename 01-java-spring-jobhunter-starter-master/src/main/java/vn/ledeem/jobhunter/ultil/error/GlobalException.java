@@ -28,8 +28,8 @@ public class GlobalException {
     public ResponseEntity<RestResponse<Object>> handleIdInvalidException(Exception ex) {
         RestResponse<Object> restResponse = new RestResponse<>();
         restResponse.setStatusCode(HttpStatus.BAD_REQUEST.value());
-        restResponse.setError(ex.getMessage());
-        restResponse.setMessage("CALL API ERROR Exception");
+        restResponse.setMessage(ex.getMessage());
+        restResponse.setError("Exception occurs...");
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(restResponse);
     }
@@ -40,8 +40,8 @@ public class GlobalException {
     public ResponseEntity<RestResponse<Object>> handleNotFoundException(Exception ex) {
         RestResponse<Object> res = new RestResponse<Object>();
         res.setStatusCode(HttpStatus.NOT_FOUND.value());
-        res.setError(ex.getMessage());
-        res.setMessage("404 Not Found. URL may not exist...");
+        res.setMessage(ex.getMessage());
+        res.setError("404 Not Found. URL may not exist...");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(res);
     }
 
@@ -70,8 +70,8 @@ public class GlobalException {
     public ResponseEntity<RestResponse<Object>> handleFileUploadException(Exception ex) {
         RestResponse<Object> restResponse = new RestResponse<>();
         restResponse.setStatusCode(HttpStatus.BAD_REQUEST.value());
-        restResponse.setError(ex.getMessage());
-        restResponse.setMessage("CALL API ERROR Exception");
+        restResponse.setMessage(ex.getMessage());
+        restResponse.setError("Forbidden. File upload error.");
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(restResponse);
     }

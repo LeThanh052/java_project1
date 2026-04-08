@@ -62,9 +62,9 @@ public class SecurityConfiguration {
                         authz
                                 .requestMatchers(whiteList).permitAll()
                                 .requestMatchers("/", "/api/v1/auth/login", "/api/v1/auth/refresh").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/v1/companies").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/v1/jobs").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/v1/skills").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/v1/companies/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/v1/jobs/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/v1/skills/**").permitAll()
                                 .anyRequest().authenticated())
                 // .securityMatcher("/users/**")
                 .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults())
